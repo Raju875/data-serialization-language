@@ -1,1 +1,24 @@
-version: 1.0
+# This is a k8s copy file to follow the yaml
+
+apiVersion: v1
+kind: Prod
+metadata: # object
+  name: nginx
+  labels: # object
+    app: ngnix
+spec: # object
+  containers: # list of objects
+  - name: ngnix-container
+    image: ngnix
+    ports: # list
+    - containerPort: 80
+    volumeMounts: # list of objects
+    - name: ngnix-vol
+      mountPath: /usr/ngnix/html
+  - name: sidecar-container 
+    image: some-image
+    command: 
+      - sh
+      - -ec
+      - >- # single line string
+        mysql -h 127.0.0.1 -u root -p&MySQL_ROOT_PASSWORD -e 'SELECT 1'
